@@ -24,6 +24,7 @@
 		"typescript": "^5.3.3"
 	},
 	"dependencies": {
+		"node-fetch": "^3.3.2",
 		"stylelint-formatter-pretty": "^4.0.0"
 	}
 }
