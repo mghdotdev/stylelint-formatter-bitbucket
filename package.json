@@ -13,7 +13,8 @@
 	"license": "MIT",
 	"scripts": {
 		"build": "npx tsc",
-		"watch": "npx tsc -w"
+		"watch": "npx tsc -w",
+		"test": "npm run build && stylelint tests/test.scss --custom-formatter ./dist/main.js"
 	},
 	"peerDependencies": {
 		"stylelint": ">=14"
@@ -24,7 +25,7 @@
 		"typescript": "^5.3.3"
 	},
 	"dependencies": {
-		"node-fetch": "^3.3.2",
-		"stylelint-formatter-pretty": "^4.0.0"
+		"node-fetch": "^2.7.0",
+		"stylelint-formatter-pretty": "^3.2.1"
 	}
 }
