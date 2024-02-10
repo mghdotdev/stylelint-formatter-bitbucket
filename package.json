@@ -1,7 +1,7 @@
 {
 	"name": "stylelint-formatter-bitbucket",
 	"description": "Create a report and annotations for BitBucket Cloud Pull Requests from stylelint results.",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"main": "./dist/main.js",
 	"author": {
 		"name": "Max Hegler",
@@ -12,6 +12,7 @@
 	],
 	"license": "MIT",
 	"scripts": {
+		"prepublishOnly": "npm run build",
 		"build": "npx tsc",
 		"watch": "npx tsc -w",
 		"test": "npm run build && stylelint tests/test.scss --custom-formatter ./dist/main.js"

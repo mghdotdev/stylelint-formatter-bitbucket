@@ -92,11 +92,11 @@ const generateAnnotations = (results: LintResult[], reportId: string): BitBucket
 };
 
 const deleteReport = (reportId: string): Promise<Response> => {
-	return httpClient(`2.0/repositories/${BITBUCKET_WORKSPACE}/${BITBUCKET_REPO_SLUG}/commit/${BITBUCKET_COMMIT}/reports/${reportId}`, 'DELETE');
+	return httpClient(`/2.0/repositories/${BITBUCKET_WORKSPACE}/${BITBUCKET_REPO_SLUG}/commit/${BITBUCKET_COMMIT}/reports/${reportId}`, 'DELETE');
 };
 
 const createReport = (reportId: string, reportData: BitBucketReportData): Promise<Response> => {
-	return httpClient(`2.0/repositories/${BITBUCKET_WORKSPACE}/${BITBUCKET_REPO_SLUG}/commit/${BITBUCKET_COMMIT}/reports/${reportId}`, 'PUT', {
+	return httpClient(`/2.0/repositories/${BITBUCKET_WORKSPACE}/${BITBUCKET_REPO_SLUG}/commit/${BITBUCKET_COMMIT}/reports/${reportId}`, 'PUT', {
 		json: reportData,
 		responseType: 'json'
 	});
@@ -104,7 +104,7 @@ const createReport = (reportId: string, reportData: BitBucketReportData): Promis
 
 const createAnnotations = async (reportId: string, annotations: BitBucketAnnotationItem[]): Promise<Response> => {
 	const chunk = annotations.slice(0, MAX_ANNOTATIONS_PER_REQUEST);
-	const response = await httpClient(`2.0/repositories/${BITBUCKET_WORKSPACE}/${BITBUCKET_REPO_SLUG}/commit/${BITBUCKET_COMMIT}/reports/${reportId}/annotations`, 'POST', {
+	const response = await httpClient(`/2.0/repositories/${BITBUCKET_WORKSPACE}/${BITBUCKET_REPO_SLUG}/commit/${BITBUCKET_COMMIT}/reports/${reportId}/annotations`, 'POST', {
 		json: chunk,
 		responseType: 'json'
 	});
