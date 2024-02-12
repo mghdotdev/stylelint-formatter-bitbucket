@@ -6,8 +6,6 @@ import pretty from 'stylelint-formatter-pretty';
 import { BitBucketAnnotationItem, BitBucketReportData, Severities } from './types';
 import { checkResponseStatus, getEnv, pluralize } from './util';
 
-const DEBUG = getEnv('STYLELINT_FORMATTER_BITBUCKET_DEBUG', false);
-
 const BITBUCKET_WORKSPACE = getEnv('BITBUCKET_WORKSPACE');
 const BITBUCKET_REPO_SLUG = getEnv('BITBUCKET_REPO_SLUG');
 const BITBUCKET_COMMIT = getEnv('BITBUCKET_COMMIT');
@@ -33,10 +31,6 @@ const httpClient = (() => {
 				}
 				: {}
 		});
-
-		if (DEBUG) {
-			console.log((await response.json()));
-		}
 
 		return response;
 	};
@@ -66,7 +60,7 @@ const generateReport = (results: LintResult[]): BitBucketReportData => {
 	const result = errorCount > 0 ? 'FAILED' : 'PASSED';
 
 	return {
-		title: 'Stylelint BitBucket Reporter',
+		title: 'Stylelint Bitbucket Reporter',
 		logo_url: 'https://stylelint.io/img/light.svg',
 		reporter: 'Stylelint',
 		report_type: 'TEST',
@@ -104,18 +98,12 @@ const deleteReport = (reportId: string): Promise<Response> => {
 };
 
 const createReport = (reportId: string, reportData: BitBucketReportData): Promise<Response> => {
-	return httpClient(`/2.0/repositories/${BITBUCKET_WORKSPACE}/${BITBUCKET_REPO_SLUG}/commit/${BITBUCKET_COMMIT}/reports/${reportId}`, 'PUT', {
-		json: reportData,
-		responseType: 'json'
-	});
+	return httpClient(`/2.0/repositories/${BITBUCKET_WORKSPACE}/${BITBUCKET_REPO_SLUG}/commit/${BITBUCKET_COMMIT}/reports/${reportId}`, 'PUT', reportData);
 };
 
 const createAnnotations = async (reportId: string, annotations: BitBucketAnnotationItem[]): Promise<Response> => {
 	const chunk = annotations.slice(0, MAX_ANNOTATIONS_PER_REQUEST);
-	const response = await httpClient(`/2.0/repositories/${BITBUCKET_WORKSPACE}/${BITBUCKET_REPO_SLUG}/commit/${BITBUCKET_COMMIT}/reports/${reportId}/annotations`, 'POST', {
-		json: chunk,
-		responseType: 'json'
-	});
+	const response = await httpClient(`/2.0/repositories/${BITBUCKET_WORKSPACE}/${BITBUCKET_REPO_SLUG}/commit/${BITBUCKET_COMMIT}/reports/${reportId}/annotations`, 'POST', chunk);
 
 	if (annotations.length > MAX_ANNOTATIONS_PER_REQUEST) {
 		return createAnnotations(reportId, annotations.slice(MAX_ANNOTATIONS_PER_REQUEST));
