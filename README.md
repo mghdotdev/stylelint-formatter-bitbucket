@@ -1,6 +1,6 @@
 # stylelint-formatter-bitbucket
 
-A stylelint formatter that uploads results as a report to BitBucket.
+A stylelint formatter that uploads results as a report to Bitbucket.
 
 Inspired by https://github.com/Sleavely/eslint-formatter-bitbucket
 
@@ -19,7 +19,7 @@ pipelines:
       - step:
           name: stylelint
           script:
-            - npx stylelint --custom-formatter stylelint-formatter-bitbucket **/*.css
+            - npx stylelint --custom-formatter node_modules/stylelint-formatter-bitbucket **/*.css
 ```
 
 ### Outside of Bitbucket Pipelines
