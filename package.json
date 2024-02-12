@@ -1,7 +1,7 @@
 {
 	"name": "stylelint-formatter-bitbucket",
 	"description": "Create a report and annotations for BitBucket Cloud Pull Requests from stylelint results.",
-	"version": "0.5.0",
+	"version": "0.6.0",
 	"main": "./dist/main.js",
 	"author": {
 		"name": "Max Hegler",
