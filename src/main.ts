@@ -26,7 +26,9 @@ const httpClient = (() => {
 			method,
 			headers,
 			...body
-				? {body}
+				? {
+					body: JSON.stringify(body)
+				}
 				: {}
 		});
 
