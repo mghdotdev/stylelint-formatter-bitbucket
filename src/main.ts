@@ -6,6 +6,8 @@ import pretty from 'stylelint-formatter-pretty';
 import { BitBucketAnnotationItem, BitBucketReportData, Severities } from './types';
 import { checkResponseStatus, getEnv, pluralize } from './util';
 
+const DEBUG = getEnv('STYLELINT_FORMATTER_BITBUCKET_DEBUG', false);
+
 const BITBUCKET_WORKSPACE = getEnv('BITBUCKET_WORKSPACE');
 const BITBUCKET_REPO_SLUG = getEnv('BITBUCKET_REPO_SLUG');
 const BITBUCKET_COMMIT = getEnv('BITBUCKET_COMMIT');
@@ -31,6 +33,10 @@ const httpClient = (() => {
 				}
 				: {}
 		});
+
+		if (DEBUG) {
+			console.log((await response.json()));
+		}
 
 		return response;
 	};

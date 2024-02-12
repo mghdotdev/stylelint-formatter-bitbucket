@@ -1,13 +1,13 @@
 import type { Response } from 'node-fetch';
 
-export function getEnv (key: string): string {
-	const test = process.env[key]
+export function getEnv (key: string, throwError: boolean = true): string {
+	const test = process.env[key];
 
-	if (!test) {
-		throw new Error(`Missing ENV var: [${key}]`)
+	if (!test && throwError) {
+		throw new Error(`Missing ENV var: [${key}]`);
 	}
 
-	return test
+	return test;
 }
 
 export function pluralize (str: string, count: number = 0, pluralization: string = 's') {
